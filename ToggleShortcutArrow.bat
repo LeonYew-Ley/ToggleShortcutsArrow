@@ -9,8 +9,10 @@ if %errorlevel% neq 0 (
 )
 setlocal EnableDelayedExpansion
 set "regkey=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
+
 set "iconvalue=29"
-set "customicon=%windir%\System32\shell32.dll,50"
+set "customicon=%~dp0transparent.ico"
+
 
 REM 检查当前状态
 reg query "%regkey%" /v %iconvalue% >nul 2>nul
@@ -19,9 +21,9 @@ if %errorlevel%==0 (
     reg delete "%regkey%" /v %iconvalue% /f
     echo 快捷方式箭头已恢复。
 ) else (
-    REM 隐藏箭头（设置自定义图标）
+    REM 隐藏箭头（设置为运行目录下的透明图标）
     reg add "%regkey%" /v %iconvalue% /t REG_SZ /d "%customicon%" /f
-    echo 快捷方式箭头已隐藏。
+    echo 快捷方式箭头已隐藏（已设置为透明图标）。
 )
 
 REM 提供选项，是否现在重启资源管理器
