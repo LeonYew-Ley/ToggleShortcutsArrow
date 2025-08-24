@@ -24,6 +24,13 @@ if %errorlevel%==0 (
     echo 快捷方式箭头已隐藏。
 )
 
-REM 重启资源管理器使更改生效
-taskkill /f /im explorer.exe
-start explorer.exe
+REM 提供选项，是否现在重启资源管理器
+echo 操作已完成。更改将在重启资源管理器或注销后生效。
+set /p restartChoice=是否现在重启资源管理器？(Y/N): 
+if /i "%restartChoice%"=="Y" (
+    taskkill /f /im explorer.exe
+    start explorer.exe
+    echo 资源管理器已重启。
+) else (
+    echo 未重启资源管理器，稍后可手动重启或注销。
+)
